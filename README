@@ -1,0 +1,8 @@
+This is a preliminary version of spectral clustering in C++.
+
+The idea is to create a weighted graph from the given datapoints, where the weight between two points is given by some similarity function.
+We then use properties of the eigenvectors of the graph's Laplacian to compute points that represent the data well, later to use k-means clustering on this.
+
+A typical call is something like:
+
+    ./SpectralClustering --clusters 3 --neighbors 4 < data | ./visualization | python
