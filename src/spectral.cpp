@@ -1,4 +1,5 @@
 #include "spectral.h"
+#include "k_means.hpp"
 
 ostream& operator<<(ostream& o, const point& p) {
     o << "(" << p.first << ", " << p.second << ")";
@@ -74,4 +75,15 @@ vcluster spectral(const vpoint& points, uint k, double threshold, uint neighbors
     forn(i, n) forn(j, int(k)) eigenvectors[i][j] = (D.second)(i, j); 
 
     return k_means(eigenvectors, k, threshold);
+}
+
+vcluster just_k_means(const vpoint& points, uint k, double threshold) {
+    int i, n = points.size();
+    vector<vector<int>> values(n, vector<int>(2));
+    forn(i, n) {
+        values[i][0] = points[i].first;
+        values[i][1] = points[i].second;
+    }
+    
+    return k_means(values, k, threshold);
 }

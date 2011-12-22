@@ -1,7 +1,6 @@
 #include <vector>
 #include <functional>
 #include <Eigen/Dense>
-#include "k_means.hpp"
 
 #define forsn(i, s, n) for(i = (s); i < (n); ++i)
 #define forn(i, n) forsn(i, 0, n)
@@ -24,3 +23,4 @@ typedef Matrix<double, Dynamic, Dynamic> matrix;
 typedef pair<matrix, matrix> decomposition;
 
 vcluster spectral(const vpoint& points, uint k, double threshold, uint neighbors, double sigma2);
+vcluster just_k_means(const vpoint& points, uint k, double threshold);

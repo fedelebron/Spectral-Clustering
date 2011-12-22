@@ -12,6 +12,7 @@ namespace po = boost::program_options;
 int main(int argc, char** argv) {
     uint x, y, k, neighbors, n;
     double threshold, sigma2;
+    string method;
     // Declare the supported options.
     po::options_description desc("Program options");
     desc.add_options()
@@ -20,13 +21,14 @@ int main(int argc, char** argv) {
         ("neighbors,e", po::value<uint>(&neighbors)->default_value(1), "number of neighbors to consider in the graph")
         ("sigma2,s", po::value<double>(&sigma2)->default_value(10000), "fallout speed of gaussian metric")
         ("threshold,t", po::value<double>(&threshold)->default_value(0.01), "k-means clustering threshold")
+        ("method", po::value<string>(&method)->default_value("spectral"), "method, either spectral or kmeans")
     ;
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);    
 
-    if (vm.count("help")) {
+    if (vm.count("help") || (method != "spectral" && method != "kmeans")) {
         cout << desc << "\n";
         return 1;
     }
@@ -35,7 +37,8 @@ int main(int argc, char** argv) {
     while(cin >> x >> y) points.push_back(point(x,y));
     n = points.size();
     
-    auto clusters = spectral(points, k, threshold, neighbors, sigma2);
+    auto clusters = (method == "spectral") ? spectral(points, k, threshold, neighbors, sigma2)
+                                           : just_k_means(points, k, threshold);
     
     cout << n << endl;
     cout << k << endl;
