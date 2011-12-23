@@ -1,4 +1,4 @@
-AM_CPPFLAGS=-I /usr/local/include/eigen3 -std=c++11
+AM_CPPFLAGS=-std=c++0x -g
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 OBJDIR=obj

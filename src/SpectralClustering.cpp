@@ -10,7 +10,7 @@ namespace po = boost::program_options;
 
 
 int main(int argc, char** argv) {
-    uint x, y, k, neighbors, n;
+    uint x, y, k, neighbors, n, retries;
     double threshold, sigma2;
     string method;
     // Declare the supported options.
@@ -22,6 +22,7 @@ int main(int argc, char** argv) {
         ("sigma2,s", po::value<double>(&sigma2)->default_value(10000), "fallout speed of gaussian metric")
         ("threshold,t", po::value<double>(&threshold)->default_value(0.01), "k-means clustering threshold")
         ("method", po::value<string>(&method)->default_value("spectral"), "method, either spectral or kmeans")
+        ("retries", po::value<uint>(&retries)->default_value(50000), "number of k-means attempts at making k clusters before giving up")
     ;
 
     po::variables_map vm;
@@ -37,8 +38,8 @@ int main(int argc, char** argv) {
     while(cin >> x >> y) points.push_back(point(x,y));
     n = points.size();
     
-    auto clusters = (method == "spectral") ? spectral(points, k, threshold, neighbors, sigma2)
-                                           : just_k_means(points, k, threshold);
+    auto clusters = (method == "spectral") ? spectral(points, k, threshold, neighbors, sigma2, retries)
+                                           : just_k_means(points, k, threshold, retries);
     
     cout << n << endl;
     cout << k << endl;

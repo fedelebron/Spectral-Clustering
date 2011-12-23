@@ -22,5 +22,5 @@ typedef function<double(const point&, const point&)> similarity_function;
 typedef Matrix<double, Dynamic, Dynamic> matrix;
 typedef pair<matrix, matrix> decomposition;
 
-vcluster spectral(const vpoint& points, uint k, double threshold, uint neighbors, double sigma2);
-vcluster just_k_means(const vpoint& points, uint k, double threshold);
+vcluster spectral(const vpoint& points, uint k, double threshold, uint neighbors, double sigma2, uint retries);
+vcluster just_k_means(const vpoint& points, uint k, double threshold, uint retries);

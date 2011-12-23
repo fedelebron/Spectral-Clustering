@@ -67,16 +67,16 @@ decomposition solve_generalized(const vpoint& points, similarity_function f, uin
     return decomposition(solve.eigenvalues(), solve.eigenvectors());
 }
 
-vcluster spectral(const vpoint& points, uint k, double threshold, uint neighbors, double sigma2) {
+vcluster spectral(const vpoint& points, uint k, double threshold, uint neighbors, double sigma2, uint retries) {
     int i, j, n = points.size();
     decomposition&& D = solve_generalized(points, build_euclidean_metric(sigma2), neighbors);
     vector<vector<double>> eigenvectors(n, vector<double>(k));
     forn(i, n) forn(j, int(k)) eigenvectors[i][j] = (D.second)(i, j); 
 
-    return k_means(eigenvectors, k, threshold);
+    return k_means(eigenvectors, k, threshold, retries);
 }
 
-vcluster just_k_means(const vpoint& points, uint k, double threshold) {
+vcluster just_k_means(const vpoint& points, uint k, double threshold, uint retries) {
     int i, n = points.size();
     vector<vector<int>> values(n, vector<int>(2));
     forn(i, n) {
@@ -84,5 +84,5 @@ vcluster just_k_means(const vpoint& points, uint k, double threshold) {
         values[i][1] = points[i].second;
     }
     
-    return k_means(values, k, threshold);
+    return k_means(values, k, threshold, retries);
 }

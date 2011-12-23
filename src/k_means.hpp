@@ -9,8 +9,6 @@
 #define forn(i, n) forsn(i, 0, n)
 #define double_infty (numeric_limits<double>::infinity())
 
-#define RETRIES 5000
-
 using namespace std;
 
 typedef unsigned int uint;
@@ -91,12 +89,12 @@ template<typename T> void initialize(vector<int>& belongs_to, vmean& means, cons
     calculate_means(belongs_to, means, points);
 }
 
-template<typename T> vector<int> k_means(const vector<vector<T>>& points, int k, double threshold) {
+template<typename T> vector<int> k_means(const vector<vector<T>>& points, int k, double threshold, uint retries) {
     vector<int> belongs_to; // belongs_to[i] = j means i belongs to cluster j
     vector<vector<double>> means;
     double dist;
-    int tries = 0;
-    while(tries++ < RETRIES) {
+    uint tries = 0;
+    while(tries++ < retries) {
         initialize(belongs_to, means, points, k);
         do {
             assign_means(belongs_to, means, points);
