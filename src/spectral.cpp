@@ -43,7 +43,7 @@ matrix similarity_matrix(const vpoint& points, similarity_function f, uint k) {
     uint i, j;
     matrix S(n, n);
     forn(i, n) forn(j, n) S(i, j) = f(points[i], points[j]);
-    forn(i, n) S(i, i) = 0; 
+    forn(i, n) S(i, i) = 0;
     return k_nearest_neighbors(S, k, points);
 }
 
@@ -62,15 +62,14 @@ matrix diagonal(const matrix& S) {
 decomposition solve_generalized(const vpoint& points, similarity_function f, uint k) {
     matrix W = similarity_matrix(points, f, k);
     matrix D = diagonal(W);
-    
     GeneralizedSelfAdjointEigenSolver<matrix> solve(D-W, D);
+
     return decomposition(solve.eigenvalues(), solve.eigenvectors());
 }
 
 vcluster spectral(const vpoint& points, uint k, double threshold, uint neighbors, double sigma2) {
     int i, j, n = points.size();
     decomposition&& D = solve_generalized(points, build_euclidean_metric(sigma2), neighbors);
-
     vector<vector<double>> eigenvectors(n, vector<double>(k));
     forn(i, n) forn(j, int(k)) eigenvectors[i][j] = (D.second)(i, j); 
 

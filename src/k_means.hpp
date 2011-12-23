@@ -9,7 +9,7 @@
 #define forn(i, n) forsn(i, 0, n)
 #define double_infty (numeric_limits<double>::infinity())
 
-#define RETRIES 100
+#define RETRIES 5000
 
 using namespace std;
 
