@@ -24,5 +24,20 @@ AS_VAR_POPDEF([CACHEVAR])dnl
 
 AX_CHECK_COMPILE_FLAG([-std=c++0x], [CXXFLAGS="${CXXFLAGS} -std=c++0x"], AC_MSG_ERROR([Support for C++0x (C++11) is required from your C++ compiler.]))
 AC_CHECK_HEADER([Eigen/Dense], [], AC_MSG_ERROR([The Eigen library headers are required for compilation.]))
+
+AC_DEFUN([PYTHON_MODULE], [
+AC_REQUIRE([AM_PATH_PYTHON])
+AC_MSG_CHECKING(for $1 python module)
+$PYTHON -c "import $1" 2>/dev/null
+if test $? == 0; then
+  AC_MSG_RESULT(found)
+else
+  AC_MSG_FAILURE(not found)
+fi
+])
+
+PYTHON_MODULE([numpy])
+PYTHON_MODULE([matplotlib])
+
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
