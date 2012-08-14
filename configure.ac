@@ -24,6 +24,8 @@ AS_VAR_POPDEF([CACHEVAR])dnl
 
 AX_CHECK_COMPILE_FLAG([-std=c++0x], [CXXFLAGS="${CXXFLAGS} -std=c++0x"], AC_MSG_ERROR([Support for C++0x (C++11) is required from your C++ compiler.]))
 AC_CHECK_HEADER([Eigen/Dense], [], AC_MSG_ERROR([The Eigen library headers are required for compilation.]))
+AC_CHECK_HEADER([boost/lexical_cast.hpp], [], AC_MSG_ERROR([The Boost lexical_cast headers are required for compilation.]))
+AX_BOOST_PROGRAM_OPTIONS
 
 AC_DEFUN([PYTHON_MODULE], [
 AC_REQUIRE([AM_PATH_PYTHON])
