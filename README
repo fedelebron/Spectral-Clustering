@@ -5,4 +5,4 @@ We then use properties of the eigenvectors of the graph's Laplacian to compute p
 
 A typical call is something like:
 
-    ./SpectralClustering --clusters 3 --neighbors 4 < data | ./visualization | python
+    ./SpectralClustering --clusters 3 --neighbors 4 < data.txt | ./visualization | python

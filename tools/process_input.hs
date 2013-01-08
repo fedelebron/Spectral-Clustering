@@ -17,7 +17,7 @@ normalizeAll :: [Float] -> [Integer]
 normalizeAll xs = modxs
     where
         mi = minimum xs
-        f = normalize 1000 mi
+        f = normalize 100 mi
         modxs = map f xs
 
 normalizeComponent :: [Coord] -> (Coord -> Float) -> [Integer]
